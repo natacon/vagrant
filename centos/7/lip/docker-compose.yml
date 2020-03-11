@@ -1,0 +1,18 @@
+version: '3'
+services:
+    web:
+        build: .
+        ports:
+        - 28080:8080
+        - 28000:8000
+        container_name: web
+        command: catalina.sh jpda run
+        environment:
+            LANG: ja_JP.UTF-8
+            TZ: Asia/Tokyo
+            JPDA_ADDRESS: 28000
+        volumes:
+        - ./src/main/webapp:/usr/local/tomcat/webapps/ROOT
+        - ./build/classes/java/main:/usr/local/tomcat/webapps/ROOT/WEB-INF/classes
+        - ./build/output/libs:/usr/local/tomcat/webapps/ROOT/WEB-INF/lib
+        - ./lip-other-resources:/etc/lip-other-resources
